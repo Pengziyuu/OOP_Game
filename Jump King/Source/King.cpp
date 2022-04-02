@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "King.h"
+#include "GameAudio.h"
 
 namespace game_framework {
 	King::King()
@@ -14,39 +15,42 @@ namespace game_framework {
 
 	void King::Initialize()
 	{
-		const int X_POS = 480;
+		// 人物設定
+		const int X_POS = 480; 
 		const int Y_POS = 602;
 		x = X_POS;
 		y = Y_POS;
-		isMovingLeft = isMovingRight = false;
-		isRightLeft = true;
+		velocity = 0;							
+		isMovingLeft = isMovingRight = false;	
+		applyForce = false;						
+		isJumpING = false;						
+		jumpDirection = NONE;					
+		faceDirection = RIGHT;			
 
-
-		const int FLOOR = 601;
+		const int FLOOR = 602;
 		floor = FLOOR;
-		rising = true;
-		isJump = false;
-		isJumpUp = false;
-		isJumpING = false;
-		velocity = 5;
 	}
 
 	void King::LoadBitmap()
 	{
 		// RightRun
-		animationRRUN.AddBitmap(IDB_KING01, RGB(0, 0, 0));
-		animationRRUN.AddBitmap(IDB_KING02, RGB(0, 0, 0));
-		animationRRUN.AddBitmap(IDB_KING03, RGB(0, 0, 0));
-		animationRRUN.AddBitmap(IDB_KING04, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING01, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING02, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING03, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING04, RGB(0, 0, 0));
 		// LeftRun
-		animationLRUN.AddBitmap(IDB_KING01L, RGB(0, 0, 0));
-		animationLRUN.AddBitmap(IDB_KING02L, RGB(0, 0, 0));
-		animationLRUN.AddBitmap(IDB_KING03L, RGB(0, 0, 0));
-		animationLRUN.AddBitmap(IDB_KING04L, RGB(0, 0, 0));
-
+		animationRUNL.AddBitmap(IDB_KING01L, RGB(0, 0, 0));
+		animationRUNL.AddBitmap(IDB_KING02L, RGB(0, 0, 0));
+		animationRUNL.AddBitmap(IDB_KING03L, RGB(0, 0, 0));
+		animationRUNL.AddBitmap(IDB_KING04L, RGB(0, 0, 0));
+		// ReadyJump
 		jumpReady.LoadBitmap(IDB_KING11, RGB(0, 0, 0));
-		jumpUp.LoadBitmap(IDB_KING12, RGB(0, 0, 0));
-		jumpDown.LoadBitmap(IDB_KING13, RGB(0, 0, 0));
+		// RightJump
+		jumpUpR.LoadBitmap(IDB_KING12, RGB(0, 0, 0));
+		jumpDownR.LoadBitmap(IDB_KING13, RGB(0, 0, 0));
+		// LeftJump
+		jumpUpL.LoadBitmap(IDB_KING12L, RGB(0, 0, 0));
+		jumpDownL.LoadBitmap(IDB_KING13L, RGB(0, 0, 0));
 	}
 
 	int King::GetX1()
@@ -61,12 +65,12 @@ namespace game_framework {
 
 	int King::GetX2()
 	{
-		return x + animationRRUN.Width();
+		return x + animationRUNR.Width();
 	}
 
 	int King::GetY2()
 	{
-		return y + animationRRUN.Height();
+		return y + animationRUNR.Height();
 	}
 
 	void King::SetMovingLeft(bool flag)
@@ -79,166 +83,217 @@ namespace game_framework {
 		isMovingRight = flag;
 	}
 
-	void King::SetRightLeft(bool flag)
+	void King::FaceDirection()
 	{
-		isRightLeft = flag;
+		if (applyForce == false && isJumpING == false) // 不在蓄力和跳躍中改動方向
+		{
+			if (isMovingLeft == true && isMovingRight == true) // 左右都按時方向不變
+			{
+				return;
+			}
+			else if (isMovingLeft)
+			{
+				faceDirection = LEFT;
+			}
+			else if (isMovingRight)
+			{
+				faceDirection = RIGHT;
+			}
+		}
 	}
 
-	void King::SetJump(bool flag)
+	void King::addJumpForce() // 非跳躍時是否增加跳躍力
 	{
-		isJump = flag;
+		if (isJumpING == false)
+		{
+			applyForce = true;
+		}
 	}
 
-	void King::SetJumpUp(bool flag)
+	void King::doJump()
 	{
-		isJumpUp = flag;
-	}
+		applyForce = false; // 結束蓄力
+		isJumpING = true;	// 開始跳躍
 
-	void King::SetHeight() 
-	{
-		velocity+=2;
-	}
+		// 設定跳出去方向
+		if (isMovingLeft == isMovingRight) jumpDirection = NONE;
+		else
+		{
+			if (isMovingLeft)  jumpDirection = JLEFT;
+			if (isMovingRight)  jumpDirection = JRIGHT;
+		}
 
-	bool King::GetJumpING()
-	{
-		return isJumpING;
 	}
 
 	void King::OnMove()
 	{
-		if (isJump)
+		// 蓄力
+		if (applyForce)
 		{
-			if (isJumpUp || velocity == 25)
-			{ 
-				isJumpUp = true;
-				isJumpING = true;
-				if (rising)
-				{
-					if (velocity > 0)
-					{
-						x += 10;
-						y -= velocity;
-						velocity--;
-					}
-					else
-					{
-						rising = false;
-						velocity = 1;
-					}
-				}
-				else
-				{
-					if (y < floor - 1)
-					{
-						x += 10;
-						y += velocity;
-						velocity++;
-					}
-					else {
-						rising = true;
-						isJump = false;
-						isJumpUp = false;
-						isJumpING = false;
-						velocity = 5;
-					}
-				}
+			velocity++;
+			if (velocity >= 17)
+			{
+				doJump();
 			}
 		}
-		// 跑步
-		else
+
+		// 跳躍
+		if (isJumpING)
 		{
-			const int STEP_SIZE = 3;
-			if (isMovingLeft == false && isMovingRight == false) // 左右放開，動畫設為後按的
+			y -= velocity;
+			if (y <= floor - 1) // the king not touch the ground
 			{
-				if (isRightLeft)
-				{
-					animationRRUN.Reset();
+				y -= velocity;
+				velocity--;
+				if (jumpDirection == JRIGHT) {
+					x += 13;
 				}
-				else
+				else if (jumpDirection == JLEFT) 
 				{
-					animationLRUN.Reset();
-				}
-			}
-			else if (isMovingLeft == true && isMovingRight == true) // 左右都按，動畫設為先按的
-			{
-				if (isRightLeft)
-				{
-					animationLRUN.Reset();
-				}
-				else
-				{
-					animationRRUN.Reset();
+					x -= 13;
 				}
 			}
-			else if (isMovingLeft) // 向左移動
+			else 
 			{
-				x -= STEP_SIZE;
-				animationLRUN.OnMove();
+				CAudio::Instance()->Play(AUDIO_Fall, false);
+				y = floor;
+				velocity = 0;
+				isJumpING = false;
+				jumpDirection = NONE;
+				FaceDirection();
+
 			}
-			else if (isMovingRight) // 向右移動
+		}
+
+		// 跑步
+		if (applyForce == false && isJumpING == false)
+		{
+			const int STEP_SIZE = 5;
+			if (isMovingLeft != isMovingRight) // 單按一方向才動
 			{
-				x += STEP_SIZE;
-				animationRRUN.OnMove();
+				switch (faceDirection)
+				{
+				case LEFT:
+					x -= STEP_SIZE;
+					break;
+				case RIGHT:
+					x += STEP_SIZE;
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
 	 
 	void King::OnShow()
 	{
-		if (isJump)
+		// 蓄力
+		if (applyForce) 
 		{
-			if (isJumpUp == false) 
+			jumpReady.SetTopLeft(x, y+jumpReady.Height());
+			jumpReady.ShowBitmap(2);
+		}
+
+		//跳躍
+		if (isJumpING)
+		{
+			switch (jumpDirection)
 			{
-				jumpReady.SetTopLeft(x, y + jumpReady.Height());
-				jumpReady.ShowBitmap(2);
-			}
-			else {
-				if (rising)
+			case JRIGHT:
+				if (velocity >= 0) 
 				{
-					jumpUp.SetTopLeft(x, y);
-					jumpUp.ShowBitmap(2);
+					jumpUpR.SetTopLeft(x, y);
+					jumpUpR.ShowBitmap(2);
 				}
 				else
 				{
-					jumpDown.SetTopLeft(x, y);
-					jumpDown.ShowBitmap(2);
+					jumpDownR.SetTopLeft(x, y);
+					jumpDownR.ShowBitmap(2);
 				}
+				break;
+			case JLEFT:
+				if (velocity >= 0) 
+				{
+					jumpUpL.SetTopLeft(x, y);
+					jumpUpL.ShowBitmap(2);
+				}
+				else
+				{
+					jumpDownL.SetTopLeft(x, y);
+					jumpDownL.ShowBitmap(2);
+				}
+				break;
+			case NONE:
+				switch (faceDirection)
+				{
+				case LEFT:
+					if (velocity >= 0)
+					{
+						jumpUpL.SetTopLeft(x, y);
+						jumpUpL.ShowBitmap(2);
+					}
+					else
+					{
+						jumpDownL.SetTopLeft(x, y);
+						jumpDownL.ShowBitmap(2);
+					}
+					break;
+				case RIGHT:
+					if (velocity >= 0)
+					{
+						jumpUpR.SetTopLeft(x, y);
+						jumpUpR.ShowBitmap(2);
+					}
+					else
+					{
+						jumpDownR.SetTopLeft(x, y);
+						jumpDownR.ShowBitmap(2);
+					}
+					break;
+				default:
+					break;
+				}
+			default:
+				break;
 			}
 		}
+
 		// 跑步
-		else
-		{
-			animationLRUN.SetTopLeft(x, y); // 設定往左動畫位置
-			animationRRUN.SetTopLeft(x, y); // 設定往右動畫位置
-			if (isMovingLeft == false && isMovingRight == false) // 左右放開，動畫設為後按的
+		if (applyForce == false && isJumpING == false) {
+			animationRUNL.SetTopLeft(x, y); // 設定往左動畫位置
+			animationRUNR.SetTopLeft(x, y); // 設定往右動畫位置
+			if (isMovingLeft == isMovingRight) // 左右放開/都按，停住
 			{
-				if (isRightLeft)
+				switch (faceDirection)
 				{
-					animationRRUN.OnShow();
-				}
-				else
-				{
-					animationLRUN.OnShow();
-				}
-			}
-			else if (isMovingLeft == true && isMovingRight == true) // 左右都按，動畫設為先按的
-			{
-				if (isRightLeft)
-				{
-					animationLRUN.OnShow();
-				}
-				else
-				{
-					animationRRUN.OnShow();
+				case LEFT:
+					animationRUNL.Reset();
+					animationRUNL.OnShow();
+					break;
+				case RIGHT:
+					animationRUNR.Reset();
+					animationRUNR.OnShow();
+					break;
+				default:
+					break;
 				}
 			}
-			else if (isMovingLeft) // 向左移動
+			else
 			{
-				animationLRUN.OnShow();
-			}
-			else if (isMovingRight) // 向右移動
-			{
-				animationRRUN.OnShow();
+				switch (faceDirection)
+				{
+				case LEFT:
+					animationRUNL.OnMove();
+					animationRUNL.OnShow();
+					break;
+				case RIGHT:
+					animationRUNR.OnMove();
+					animationRUNR.OnShow();
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}

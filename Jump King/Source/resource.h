@@ -35,8 +35,10 @@
 #define IDB_KING31                      181
 #define IDB_KING01L                     184
 #define IDB_KING02L                     185
-#define IDB_BITMAP4                     186
 #define IDB_KING03L                     186
+#define IDB_KING12L                     187
+#define IDB_BITMAP5                     188
+#define IDB_KING13L                     188
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -49,7 +51,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        187
+#define _APS_NEXT_RESOURCE_VALUE        189
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

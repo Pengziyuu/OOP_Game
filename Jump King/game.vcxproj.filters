@@ -101,6 +101,9 @@
     <ClInclude Include="Source\Begin.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameAudio.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
@@ -178,6 +181,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\king03L.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\king12L.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\king13L.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

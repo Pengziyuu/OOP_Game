@@ -609,11 +609,8 @@ void CGame::OnInitStates()
 void CGame::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if (running)
-		if (nChar != 229)
-		if ((nFlags & 0x4000) == 0) // 去除auto repeat
+		//if ((nFlags & 0x4000) == 0) // 去除auto repeat
  		gameState->OnKeyDown(nChar, nRepCnt, nFlags);
-
-	gameState->OnKeyDown(nChar, nRepCnt, nFlags);
 
 #ifdef _UNITTEST					// invike unit test if _UNITTEST is defined
 	void runTest();

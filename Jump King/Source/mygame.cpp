@@ -58,6 +58,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
+#include "GameAudio.h"
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
@@ -118,7 +119,8 @@ void CGameStateInit::OnMove()
 
 void CGameStateInit::OnShow()
 {
-	begin.OnShow();
+	//begin.OnShow();
+	GotoGameState(GAME_STATE_RUN);
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -214,6 +216,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CAudio::Instance()->Load(AUDIO_Menu_Intro, "sounds\\Menu_Intro.mp3");
 	CAudio::Instance()->Load(AUDIO_Opening_Theme, "sounds\\Opening_Theme.mp3");
 	CAudio::Instance()->Play(AUDIO_Menu_Intro, true);
+
+	CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3");
 	//
 	// 完成部分Loading動作，提高進度
 	//
@@ -236,19 +240,17 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_LEFT)
 	{
 		king->SetMovingLeft(true);
+		king->FaceDirection();
 	}
 
 	if (nChar == KEY_RIGHT)
 	{
 		king->SetMovingRight(true);
+		king->FaceDirection();
 	}
 
 	if (nChar == KEY_SPACE) {
-		king->SetJump(true);
-		if (king->GetJumpING() == false)
-		{
-			king->SetHeight();
-		}
+		king->addJumpForce();
 	}
 }
 
@@ -261,17 +263,17 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_LEFT)
 	{
 		king->SetMovingLeft(false);
-		king->SetRightLeft(false);
+		king->FaceDirection();
 	}
 	
 	if (nChar == KEY_RIGHT)
 	{
 		king->SetMovingRight(false);
-		king->SetRightLeft(true);
+		king->FaceDirection();
 	}
 
 	if (nChar == KEY_SPACE) {
-		king->SetJumpUp(true);
+		king->doJump();
 	}
 }
 

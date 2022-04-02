@@ -283,6 +283,7 @@
   <ItemGroup>
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\Begin.h" />
+    <ClInclude Include="Source\GameAudio.h" />
     <ClInclude Include="Source\King.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
@@ -321,7 +322,9 @@
     <Image Include="RES\king04L.bmp" />
     <Image Include="RES\king11.bmp" />
     <Image Include="RES\king12.bmp" />
+    <Image Include="RES\king12L.bmp" />
     <Image Include="RES\king13.bmp" />
+    <Image Include="RES\king13L.bmp" />
     <Image Include="RES\king14.bmp" />
     <Image Include="RES\king31.bmp" />
     <Image Include="RES\logo.bmp" />
