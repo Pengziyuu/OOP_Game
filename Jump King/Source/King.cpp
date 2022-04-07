@@ -16,8 +16,9 @@ namespace game_framework {
 	void King::Initialize()
 	{
 		// 人物設定
+		CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3");
 		const int X_POS = 480; 
-		const int Y_POS = 602;
+		const int Y_POS = 608;
 		x = X_POS;
 		y = Y_POS;
 		velocity = 0;							
@@ -27,7 +28,7 @@ namespace game_framework {
 		jumpDirection = NONE;					
 		faceDirection = RIGHT;			
 
-		const int FLOOR = 602;
+		const int FLOOR = 608;
 		floor = FLOOR;
 	}
 
@@ -112,17 +113,19 @@ namespace game_framework {
 
 	void King::doJump()
 	{
-		applyForce = false; // 結束蓄力
-		isJumpING = true;	// 開始跳躍
-
-		// 設定跳出去方向
-		if (isMovingLeft == isMovingRight) jumpDirection = NONE;
-		else
+		if (isJumpING == false) // 非跳躍期間才可改變跳躍方向
 		{
-			if (isMovingLeft)  jumpDirection = JLEFT;
-			if (isMovingRight)  jumpDirection = JRIGHT;
-		}
+			applyForce = false; // 結束蓄力
+			isJumpING = true;	// 開始跳躍
 
+			// 設定跳出去方向
+			if (isMovingLeft == isMovingRight) jumpDirection = NONE;
+			else
+			{
+				if (isMovingLeft)  jumpDirection = JLEFT;
+				if (isMovingRight)  jumpDirection = JRIGHT;
+			}
+		}
 	}
 
 	void King::OnMove()
@@ -130,8 +133,8 @@ namespace game_framework {
 		// 蓄力
 		if (applyForce)
 		{
-			velocity++;
-			if (velocity >= 17)
+			velocity+=2;
+			if (velocity >= 25)
 			{
 				doJump();
 			}
@@ -140,23 +143,24 @@ namespace game_framework {
 		// 跳躍
 		if (isJumpING)
 		{
-			y -= velocity;
-			if (y <= floor - 1) // the king not touch the ground
+			//y -= velocity;
+			if (y <= floor + velocity) // the king not touch the ground
 			{
 				y -= velocity;
 				velocity--;
 				if (jumpDirection == JRIGHT) {
-					x += 13;
+					x += 9;
 				}
 				else if (jumpDirection == JLEFT) 
 				{
-					x -= 13;
+					x -= 9;
 				}
 			}
 			else 
 			{
+				
 				CAudio::Instance()->Play(AUDIO_Fall, false);
-				y = floor;
+				//y = floor;
 				velocity = 0;
 				isJumpING = false;
 				jumpDirection = NONE;

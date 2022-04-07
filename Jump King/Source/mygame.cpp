@@ -119,8 +119,8 @@ void CGameStateInit::OnMove()
 
 void CGameStateInit::OnShow()
 {
-	//begin.OnShow();
-	GotoGameState(GAME_STATE_RUN);
+	begin.OnShow();
+	// GotoGameState(GAME_STATE_RUN);
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -217,7 +217,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CAudio::Instance()->Load(AUDIO_Opening_Theme, "sounds\\Opening_Theme.mp3");
 	CAudio::Instance()->Play(AUDIO_Menu_Intro, true);
 
-	CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3");
 	//
 	// 完成部分Loading動作，提高進度
 	//
