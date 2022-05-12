@@ -118,8 +118,8 @@ void CGameStateInit::OnMove()
 
 void CGameStateInit::OnShow()
 {
-	// begin.OnShow();
-	GotoGameState(GAME_STATE_RUN);
+	begin.OnShow();
+	//GotoGameState(GAME_STATE_RUN);
 }								
 
 /////////////////////////////////////////////////////////////////////////////

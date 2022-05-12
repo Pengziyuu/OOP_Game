@@ -12,6 +12,10 @@ namespace game_framework {
 		int IsEmpty(int x, int y);
 		void Map01();
 		void Map02();
+		void Map03();
+		void Map04();
+		void Map05();
+		void Map06();
 	protected:
 		int **matrix;
 		int nowMap;
@@ -21,6 +25,21 @@ namespace game_framework {
 
 		CMovingBitmap map02;
 		CMovingBitmap fg02;
+
+		CMovingBitmap map03;
+		CMovingBitmap fg03;
+
+		CMovingBitmap bg04;
+		CMovingBitmap map04;
+		CMovingBitmap fg04;
+
+		CMovingBitmap bg05;
+		CMovingBitmap map05;
+		CMovingBitmap fg05;
+
+		CMovingBitmap bg06;
+		CMovingBitmap map06;
+		CMovingBitmap fg06;
 
 	};
 }

@@ -144,9 +144,6 @@
     <Image Include="..\..\..\..\Downloads\fg1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bitmap4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="RES\king04L.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -190,6 +187,39 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\king31L.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg6.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

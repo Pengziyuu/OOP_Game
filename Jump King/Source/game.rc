@@ -110,6 +110,28 @@ IDB_KING13L             BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1
 
 IDB_KING31L             BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\king31L.bmp"
 
+IDB_03                  BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\3.bmp"
+
+IDB_04                  BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\4.bmp"
+
+IDB_05                  BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\5.bmp"
+
+IDB_06                  BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\6.bmp"
+
+IDB_FG03                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\fg3.bmp"
+
+IDB_FG04                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\fg4.bmp"
+
+IDB_FG05                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\fg5.bmp"
+
+IDB_FG06                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\fg6.bmp"
+
+IDB_BG04                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\bg4.bmp"
+
+IDB_BG05                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\bg5.bmp"
+
+IDB_BG06                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\bg6.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
