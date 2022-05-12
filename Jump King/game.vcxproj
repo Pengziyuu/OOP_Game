@@ -327,6 +327,7 @@
     <Image Include="RES\king13L.bmp" />
     <Image Include="RES\king14.bmp" />
     <Image Include="RES\king31.bmp" />
+    <Image Include="RES\king31L.bmp" />
     <Image Include="RES\logo.bmp" />
     <Image Include="RES\logoenter.bmp" />
   </ItemGroup>

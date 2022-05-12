@@ -58,7 +58,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-#include "GameAudio.h"
+
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,6 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 			else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 				PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 關閉遊戲
 		}
-	
 }
 
 void CGameStateInit::OnMove()
@@ -119,8 +118,8 @@ void CGameStateInit::OnMove()
 
 void CGameStateInit::OnShow()
 {
-	begin.OnShow();
-	// GotoGameState(GAME_STATE_RUN);
+	// begin.OnShow();
+	GotoGameState(GAME_STATE_RUN);
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -184,11 +183,13 @@ CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g)
 {
 	king = new King;
+	map = new Map;
 }
 
 CGameStateRun::~CGameStateRun()
 {
 	delete king;
+	delete map;
 }
 
 void CGameStateRun::OnBeginState()
@@ -198,7 +199,7 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	king->OnMove();
+	king->OnMove(map);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -211,7 +212,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 開始載入資料
 	//
-	map.LoadBitmap();
+	map->LoadBitmap();
 	king->LoadBitmap();
 	CAudio::Instance()->Load(AUDIO_Menu_Intro, "sounds\\Menu_Intro.mp3");
 	CAudio::Instance()->Load(AUDIO_Opening_Theme, "sounds\\Opening_Theme.mp3");
@@ -251,6 +252,24 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_SPACE) {
 		king->addJumpForce();
 	}
+
+
+	//------------------------------測試------------------------------//
+	
+	if (nChar == 87) {
+		king->TestMove(4, map);
+	}
+	if (nChar == 65) {
+		king->TestMove(2, map);
+	}
+	if (nChar == 83) {
+		king->TestMove(3, map);
+	}
+	if (nChar == 68) {
+		king->TestMove(1, map);
+	}
+	
+
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -286,7 +305,7 @@ void CGameStateRun::OnShow()
 	//
 	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 	//
-	map.ShowBitmap();
+	map->ShowBitmap();
 	king->OnShow();
 	//
 	//  貼上左上及右下角落的圖

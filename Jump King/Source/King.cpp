@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "King.h"
 #include "GameAudio.h"
+#include "Map.h"
 
 namespace game_framework {
 	King::King()
@@ -16,42 +17,45 @@ namespace game_framework {
 	void King::Initialize()
 	{
 		// 人物設定
-		CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3");
-		const int X_POS = 480; 
-		const int Y_POS = 608;
-		x = X_POS;
-		y = Y_POS;
-		velocity = 0;							
+		CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3"); // 落地音效
+		CAudio::Instance()->Load(AUDIO_Bump, "sounds\\Bump.mp3"); // 反彈音效
+		x = 480;
+		y = 600;
+		floor = 638;
+		velocityX = 0;
+		velocityY = 0;							
 		isMovingLeft = isMovingRight = false;	
 		applyForce = false;						
-		isJumpING = false;						
+		isJumpING = false;
+		falling = false;
 		jumpDirection = NONE;					
 		faceDirection = RIGHT;			
-
-		const int FLOOR = 608;
-		floor = FLOOR;
 	}
 
 	void King::LoadBitmap()
 	{
-		// RightRun
-		animationRUNR.AddBitmap(IDB_KING01, RGB(0, 0, 0));
-		animationRUNR.AddBitmap(IDB_KING02, RGB(0, 0, 0));
-		animationRUNR.AddBitmap(IDB_KING03, RGB(0, 0, 0));
-		animationRUNR.AddBitmap(IDB_KING04, RGB(0, 0, 0));
 		// LeftRun
 		animationRUNL.AddBitmap(IDB_KING01L, RGB(0, 0, 0));
 		animationRUNL.AddBitmap(IDB_KING02L, RGB(0, 0, 0));
 		animationRUNL.AddBitmap(IDB_KING03L, RGB(0, 0, 0));
 		animationRUNL.AddBitmap(IDB_KING04L, RGB(0, 0, 0));
+		// RightRun
+		animationRUNR.AddBitmap(IDB_KING01, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING02, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING03, RGB(0, 0, 0));
+		animationRUNR.AddBitmap(IDB_KING04, RGB(0, 0, 0));
 		// ReadyJump
 		jumpReady.LoadBitmap(IDB_KING11, RGB(0, 0, 0));
-		// RightJump
-		jumpUpR.LoadBitmap(IDB_KING12, RGB(0, 0, 0));
-		jumpDownR.LoadBitmap(IDB_KING13, RGB(0, 0, 0));
 		// LeftJump
 		jumpUpL.LoadBitmap(IDB_KING12L, RGB(0, 0, 0));
 		jumpDownL.LoadBitmap(IDB_KING13L, RGB(0, 0, 0));
+		// RightJump
+		jumpUpR.LoadBitmap(IDB_KING12, RGB(0, 0, 0));
+		jumpDownR.LoadBitmap(IDB_KING13, RGB(0, 0, 0));
+		// LeftReboun
+		reboundR.LoadBitmap(IDB_KING31, RGB(0, 0, 0));
+		// RightReboun
+		reboundL.LoadBitmap(IDB_KING31L, RGB(0, 0, 0));
 	}
 
 	int King::GetX1()
@@ -64,14 +68,14 @@ namespace game_framework {
 		return y;
 	}
 
-	int King::GetX2()
+	int King::GetX()
 	{
-		return x + animationRUNR.Width();
+		return x + 24;
 	}
 
-	int King::GetY2()
+	int King::GetY()
 	{
-		return y + animationRUNR.Height();
+		return y + 30;
 	}
 
 	void King::SetMovingLeft(bool flag)
@@ -82,6 +86,17 @@ namespace game_framework {
 	void King::SetMovingRight(bool flag)
 	{
 		isMovingRight = flag;
+	}
+
+	void King::SetFloor(Map *m) 
+	{
+		int temp = GetY();
+		// 從當前Y值往下抓地面值
+		while(m->IsEmpty(GetX(), temp) == 0)
+		{
+			temp++;
+		}
+		floor = temp;
 	}
 
 	void King::FaceDirection()
@@ -128,62 +143,130 @@ namespace game_framework {
 		}
 	}
 
-	void King::OnMove()
+	void King::OnMove(Map *m)
 	{
+		// 移動前抓地板Y值
+		SetFloor(m);
+
 		// 蓄力
 		if (applyForce)
 		{
-			velocity+=2;
-			if (velocity >= 25)
+			velocityY+=1;
+			if (velocityY >= 25)
 			{
 				doJump();
 			}
 		}
 
-		// 跳躍
+		// 跳躍，先上下判斷移動在左右判斷移動
 		if (isJumpING)
 		{
-			//y -= velocity;
-			if (y <= floor + velocity) // the king not touch the ground
+			if (m->IsEmpty(GetX(), GetY() - velocityY) == 3 && velocityY > 10) // 碰到上邊界換下一張地圖，Y值回到680
 			{
-				y -= velocity;
-				velocity--;
-				if (jumpDirection == JRIGHT) {
-					x += 9;
-				}
-				else if (jumpDirection == JLEFT) 
-				{
-					x -= 9;
-				}
+				m->ChangeMap(3);
+				y = 680;
 			}
-			else 
+			else if (m->IsEmpty(GetX(), GetY() - velocityY) == 1 && velocityY > 0) //往上碰到障礙物動能歸0
 			{
-				
-				CAudio::Instance()->Play(AUDIO_Fall, false);
-				//y = floor;
-				velocity = 0;
-				isJumpING = false;
-				jumpDirection = NONE;
-				FaceDirection();
+				velocityY = 0;
+			}
+			else if (m->IsEmpty(GetX(), GetY() - velocityY) == 0) // 上下方向沒碰到障礙物動
+			{
+				y -= velocityY;
+				velocityY--;
+				if (GetY() - velocityY > 700) // 碰到下邊界換上一張地圖，Y值回到30
+				{
+					m->ChangeMap(2);
+					y = 30;
+				}
 
+				int trueX; // X值 正常移動=9，落下=5，反彈=4
+				if (falling) trueX = 5; 
+				else trueX = 9;
+
+				switch (jumpDirection)
+				{
+				case JLEFT:
+					if (m->IsEmpty(GetX() - trueX, GetY()) == 0) 
+						velocityX = -trueX;
+					else
+					{
+						CAudio::Instance()->Play(AUDIO_Bump, false);
+						jumpDirection = JREBOUND;
+						velocityX = 4;
+					}
+					break;
+				case JRIGHT:
+					if (m->IsEmpty(GetX() + trueX, GetY()) == 0)
+						velocityX = trueX;
+					else
+					{
+						CAudio::Instance()->Play(AUDIO_Bump, false);
+						jumpDirection = JREBOUND;
+						velocityX = -4;
+					}
+					break;
+				case JREBOUND:
+					if (m->IsEmpty(GetX() - 4, GetY()) == 1 || m->IsEmpty(GetX() + 4, GetY()) == 1) // 若撞牆則位移反向否則不變
+					{                         
+  		        	 	CAudio::Instance()->Play(AUDIO_Bump, false);
+						velocityX = -velocityX;
+					}
+					break;
+				case NONE:
+					velocityX = 0;
+					break;
+				default:
+					break;
+				}
+				x += velocityX;
+			}
+			else
+			{
+				CAudio::Instance()->Play(AUDIO_Fall, false);
+				y = floor-38;
+				velocityY = 0;
+				if (jumpDirection == JRIGHT)
+					faceDirection = RIGHT;
+				if (jumpDirection == JLEFT)
+					faceDirection = LEFT;
+				jumpDirection = NONE;
+				isJumpING = false;
+				falling = false;
 			}
 		}
 
 		// 跑步
-		if (applyForce == false && isJumpING == false)
+		if (applyForce == false && isJumpING == false && falling == false) 
 		{
-			const int STEP_SIZE = 5;
+			velocityX = 5;
 			if (isMovingLeft != isMovingRight) // 單按一方向才動
 			{
+				FaceDirection();
 				switch (faceDirection)
 				{
 				case LEFT:
-					x -= STEP_SIZE;
+					if (m->IsEmpty(GetX() - velocityX, GetY()) == 0)
+						x -= velocityX;
+					if (m->IsEmpty(GetX(), GetY() + 20) == 0) // 往前沒地板掉落
+					{
+						falling = true;
+						isJumpING = true;
+						jumpDirection = JLEFT;
+					}
 					break;
 				case RIGHT:
-					x += STEP_SIZE;
+					if (m->IsEmpty(GetX() + velocityX, GetY()) == 0)
+						x += velocityX;
+					if (m->IsEmpty(GetX(), GetY() + 20) == 0) // 往前沒地板掉落
+					{
+						falling = true;
+						isJumpING = true;
+						jumpDirection = JRIGHT;
+					}
 					break;
 				default:
+					velocityY = 0;
 					break;
 				}
 			}
@@ -204,20 +287,8 @@ namespace game_framework {
 		{
 			switch (jumpDirection)
 			{
-			case JRIGHT:
-				if (velocity >= 0) 
-				{
-					jumpUpR.SetTopLeft(x, y);
-					jumpUpR.ShowBitmap(2);
-				}
-				else
-				{
-					jumpDownR.SetTopLeft(x, y);
-					jumpDownR.ShowBitmap(2);
-				}
-				break;
 			case JLEFT:
-				if (velocity >= 0) 
+				if (velocityY >= 0)
 				{
 					jumpUpL.SetTopLeft(x, y);
 					jumpUpL.ShowBitmap(2);
@@ -228,11 +299,35 @@ namespace game_framework {
 					jumpDownL.ShowBitmap(2);
 				}
 				break;
+			case JRIGHT:
+				if (velocityY >= 0) 
+				{
+					jumpUpR.SetTopLeft(x, y);
+					jumpUpR.ShowBitmap(2);
+				}
+				else
+				{
+					jumpDownR.SetTopLeft(x, y);
+					jumpDownR.ShowBitmap(2);
+				}
+				break;
+			case JREBOUND:
+				if (velocityX < 0) 
+				{
+					reboundR.SetTopLeft(x, y);
+					reboundR.ShowBitmap(2);
+				}
+				else
+				{
+					reboundL.SetTopLeft(x, y);
+					reboundL.ShowBitmap(2);
+				}
+				break;
 			case NONE:
 				switch (faceDirection)
 				{
 				case LEFT:
-					if (velocity >= 0)
+					if (velocityY >= 0)
 					{
 						jumpUpL.SetTopLeft(x, y);
 						jumpUpL.ShowBitmap(2);
@@ -244,7 +339,7 @@ namespace game_framework {
 					}
 					break;
 				case RIGHT:
-					if (velocity >= 0)
+					if (velocityY >= 0)
 					{
 						jumpUpR.SetTopLeft(x, y);
 						jumpUpR.ShowBitmap(2);
@@ -264,7 +359,7 @@ namespace game_framework {
 		}
 
 		// 跑步
-		if (applyForce == false && isJumpING == false) {
+		if (applyForce == false && isJumpING == false && falling == false) {
 			animationRUNL.SetTopLeft(x, y); // 設定往左動畫位置
 			animationRUNR.SetTopLeft(x, y); // 設定往右動畫位置
 			if (isMovingLeft == isMovingRight) // 左右放開/都按，停住
@@ -278,6 +373,7 @@ namespace game_framework {
 				case RIGHT:
 					animationRUNR.Reset();
 					animationRUNR.OnShow();
+					break;
 					break;
 				default:
 					break;
@@ -299,6 +395,32 @@ namespace game_framework {
 					break;
 				}
 			}
+		}
+	}
+
+	
+	void King::TestMove(int d, Map *m)
+	{
+		switch (d)
+		{
+		case 1: // right
+			if (m->IsEmpty(GetX() + 5, GetY()) == 0)
+			x += 5;
+			break;
+		case 2: // left
+			if (m->IsEmpty(GetX() - 5, GetY()) == 0)
+			x -= 5;
+			break;
+		case 3: // down
+			if (m->IsEmpty(GetX(), GetY() + 5) == 0)
+			y += 5;
+			break;
+		case 4: // up
+			if (m->IsEmpty(GetX(), GetY() - 5) == 0)
+			y -= 5;
+			break;
+		default:
+			break;
 		}
 	}
 }

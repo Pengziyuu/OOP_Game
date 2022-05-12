@@ -189,5 +189,8 @@
     <Image Include="RES\king13L.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\king31L.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
