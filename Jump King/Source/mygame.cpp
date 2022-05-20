@@ -268,6 +268,12 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == 68) {
 		king->TestMove(1, map);
 	}
+	if (nChar == 38) {
+		map->plus();
+	}
+	if (nChar == 40) {
+		map->minus();
+	}
 	
 
 }

@@ -95,6 +95,11 @@ namespace game_framework {
 		while(m->IsEmpty(GetX(), temp) == 0)
 		{
 			temp++;
+			if (temp > 700)
+			{
+				temp = 700;
+				break;
+			}
 		}
 		floor = temp;
 	}
@@ -161,20 +166,25 @@ namespace game_framework {
 		// 跳躍，先上下判斷移動在左右判斷移動
 		if (isJumpING)
 		{
-			if (m->IsEmpty(GetX(), GetY() - velocityY) == 3 && velocityY > 10) // 碰到上邊界換下一張地圖，Y值回到680
+			if (GetY() - velocityY <= 20) // 碰到上邊界換下一張地圖，Y值回到680
 			{
 				m->ChangeMap(3);
-				y = 680;
+				y = 670;
 			}
 			else if (m->IsEmpty(GetX(), GetY() - velocityY) == 1 && velocityY > 0) //往上碰到障礙物動能歸0
 			{
 				velocityY = 0;
 			}
-			else if (m->IsEmpty(GetX(), GetY() - velocityY) == 0) // 上下方向沒碰到障礙物動
+			else if (m->IsEmpty(GetX(), GetY() - velocityY) != 1) // 上下方向沒碰到障礙物動
 			{
+
 				y -= velocityY;
-				velocityY--;
-				if (GetY() - velocityY > 700) // 碰到下邊界換上一張地圖，Y值回到30
+				if (GetY() - velocityY < 720)
+				{
+					velocityY--;
+				}
+
+				if (GetY() - velocityY >= 700) // 碰到下邊界換上一張地圖，Y值回到30
 				{
 					m->ChangeMap(2);
 					y = 30;
@@ -189,8 +199,9 @@ namespace game_framework {
 				case JLEFT:
 					if (m->IsEmpty(GetX() - trueX, GetY()) == 0) 
 						velocityX = -trueX;
-					else
+					else 
 					{
+						TRACE("x: %d, y: %d\n", x/20, y/20);
 						CAudio::Instance()->Play(AUDIO_Bump, false);
 						jumpDirection = JREBOUND;
 						velocityX = 4;
@@ -199,7 +210,7 @@ namespace game_framework {
 				case JRIGHT:
 					if (m->IsEmpty(GetX() + trueX, GetY()) == 0)
 						velocityX = trueX;
-					else
+					else 
 					{
 						CAudio::Instance()->Play(AUDIO_Bump, false);
 						jumpDirection = JREBOUND;
