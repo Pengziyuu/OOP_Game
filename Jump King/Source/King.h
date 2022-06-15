@@ -50,5 +50,7 @@ namespace game_framework {
 		bool isJumpING;						// 是否正在跳躍
 		bool falling;						// 是否Y值正在下降
 		//------------------------------測試------------------------------//
+		int trueX;						    // X值 正常移動=9，落下=5，反彈=4
+		bool slide;
 	};
 }

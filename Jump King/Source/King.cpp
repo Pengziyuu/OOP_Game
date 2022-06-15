@@ -20,16 +20,20 @@ namespace game_framework {
 		CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3"); // 落地音效
 		CAudio::Instance()->Load(AUDIO_Bump, "sounds\\Bump.mp3"); // 反彈音效
 		x = 480;
-		y = 600;
+		//y = 600;
+		y = 300;
 		floor = 638;
 		velocityX = 0;
-		velocityY = 0;							
+		velocityY = 0;	
+		trueX = 5;
 		isMovingLeft = isMovingRight = false;	
 		applyForce = false;						
 		isJumpING = false;
 		falling = false;
 		jumpDirection = NONE;					
-		faceDirection = RIGHT;			
+		faceDirection = RIGHT;		
+
+		slide = false;
 	}
 
 	void King::LoadBitmap()
@@ -175,33 +179,84 @@ namespace game_framework {
 			{
 				velocityY = 0;
 			}
+			else if (m->IsEmpty(GetX(), GetY() - velocityY) == 4)
+			{
+				slide = true;
+				if (m->IsEmpty(GetX(), GetY() + trueX) != 1)
+				{
+					y += trueX;
+					if (GetY() + trueX < 720)
+					{
+						if (trueX < 100) trueX++;
+					}
+					if (GetY() + trueX >= 700) // 碰到下邊界換上一張地圖，Y值回到30
+					{
+						m->ChangeMap(2);
+						y = 30;
+					}
+					x += trueX;
+					while (m->IsEmpty(GetX(), GetY()) == 1) {
+						x++;
+					}
+				}
+
+				falling = true;
+				isJumpING = true;
+				jumpDirection = JRIGHT;
+		
+			}
+			else if (m->IsEmpty(GetX(), GetY() - velocityY) == 5)
+			{
+				slide = true;
+				if (m->IsEmpty(GetX(), GetY() - trueX) != 1)
+				{
+					y += trueX;
+					if (GetY() + trueX < 720)
+					{
+						if (trueX < 100) trueX++;
+					}
+					if (GetY() + trueX >= 700) // 碰到下邊界換上一張地圖，Y值回到30
+					{
+						m->ChangeMap(2);
+						y = 30;
+					}
+					x -= trueX;
+					while (m->IsEmpty(GetX(), GetY()) == 1) {
+						x--;
+					}
+				}
+
+				falling = true;
+				isJumpING = true;
+				jumpDirection = JLEFT;
+
+			}
 			else if (m->IsEmpty(GetX(), GetY() - velocityY) != 1) // 上下方向沒碰到障礙物動
 			{
-
 				y -= velocityY;
 				if (GetY() - velocityY < 720)
 				{
-					velocityY--;
+					if (velocityY < 300) velocityY--;
 				}
-
 				if (GetY() - velocityY >= 700) // 碰到下邊界換上一張地圖，Y值回到30
 				{
 					m->ChangeMap(2);
 					y = 30;
 				}
 
-				int trueX; // X值 正常移動=9，落下=5，反彈=4
-				if (falling) trueX = 5; 
-				else trueX = 9;
+				if (slide == false)
+				{
+					if (falling) trueX = 5;
+					else trueX = 9;
+				}
 
 				switch (jumpDirection)
 				{
 				case JLEFT:
 					if (m->IsEmpty(GetX() - trueX, GetY()) == 0) 
 						velocityX = -trueX;
-					else 
+					else if (m->IsEmpty(GetX() - trueX, GetY()) == 1)
 					{
-						TRACE("x: %d, y: %d\n", x/20, y/20);
 						CAudio::Instance()->Play(AUDIO_Bump, false);
 						jumpDirection = JREBOUND;
 						velocityX = 4;
@@ -210,7 +265,7 @@ namespace game_framework {
 				case JRIGHT:
 					if (m->IsEmpty(GetX() + trueX, GetY()) == 0)
 						velocityX = trueX;
-					else 
+					else if (m->IsEmpty(GetX() + trueX, GetY()) == 1)
 					{
 						CAudio::Instance()->Play(AUDIO_Bump, false);
 						jumpDirection = JREBOUND;
@@ -218,7 +273,7 @@ namespace game_framework {
 					}
 					break;
 				case JREBOUND:
-					if (m->IsEmpty(GetX() - 4, GetY()) == 1 || m->IsEmpty(GetX() + 4, GetY()) == 1) // 若撞牆則位移反向否則不變
+					if (m->IsEmpty(GetX() - velocityX, GetY()) == 1 || m->IsEmpty(GetX() + velocityX, GetY()) == 1) // 若撞牆則位移反向否則不變
 					{                         
   		        	 	CAudio::Instance()->Play(AUDIO_Bump, false);
 						velocityX = -velocityX;
@@ -244,6 +299,7 @@ namespace game_framework {
 				jumpDirection = NONE;
 				isJumpING = false;
 				falling = false;
+				slide = false;
 			}
 		}
 

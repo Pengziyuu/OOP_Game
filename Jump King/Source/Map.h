@@ -16,12 +16,16 @@ namespace game_framework {
 		void Map04();
 		void Map05();
 		void Map06();
+		void Map07();
+		void Map08();
 
 		void plus();
 		void minus();
 	protected:
 		int **matrix;
 		int nowMap;
+		int minMap;
+		int maxMap;
 
 		CMovingBitmap map01;
 		CMovingBitmap fg01;
@@ -44,5 +48,8 @@ namespace game_framework {
 		CMovingBitmap map06;
 		CMovingBitmap fg06;
 
+		CMovingBitmap map07;
+
+		CMovingBitmap map08;
 	};
 }

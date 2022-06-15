@@ -222,5 +222,11 @@
     <Image Include="RES\bg6.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

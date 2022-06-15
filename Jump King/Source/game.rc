@@ -132,6 +132,10 @@ IDB_BG05                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1
 
 IDB_BG06                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\bg6.bmp"
 
+IDB_07                  BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\7.bmp"
+
+IDB_08                  BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\8.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
