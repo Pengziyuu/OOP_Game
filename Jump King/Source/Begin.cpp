@@ -23,8 +23,8 @@ namespace game_framework {
 	void Begin::LoadBitmap()
 	{
 		logo.LoadBitmap(IDB_LOGO);
-		logoenter.LoadBitmap(IDB_LOGOENTER);
-		logoking.LoadBitmap(IDB_KING14);
+		logoEnter.LoadBitmap(IDB_LOGOENTER);
+		logoKing.LoadBitmap(IDB_KING14);
 	}
 
 	void Begin::OnMove()
@@ -64,11 +64,11 @@ namespace game_framework {
 		
 		if (show && logoStop >= 4)
 		{	
-			logoenter.SetTopLeft(x2, y2);
-			logoenter.ShowBitmap();
+			logoEnter.SetTopLeft(x2, y2);
+			logoEnter.ShowBitmap();
 		}
 	
-		logoking.SetTopLeft(x3, y3);
-		logoking.ShowBitmap(2);
+		logoKing.SetTopLeft(x3, y3);
+		logoKing.ShowBitmap(2);
 	}
 }

@@ -126,24 +126,24 @@ void CGameStateInit::OnShow()
 // 這個class為遊戲的結束狀態(Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
-CGameStateOver::CGameStateOver(CGame *g)
+CGameStateFinal::CGameStateFinal(CGame *g)
 : CGameState(g)
 {
 }
 
-void CGameStateOver::OnMove()
+void CGameStateFinal::OnMove()
 {
 	counter--;
 	if (counter < 0)
 		GotoGameState(GAME_STATE_INIT);
 }
 
-void CGameStateOver::OnBeginState()
+void CGameStateFinal::OnBeginState()
 {
 	counter = 30 * 5; // 5 seconds
 }
 
-void CGameStateOver::OnInit()
+void CGameStateFinal::OnInit()
 {
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
@@ -160,7 +160,7 @@ void CGameStateOver::OnInit()
 	ShowInitProgress(100);
 }
 
-void CGameStateOver::OnShow()
+void CGameStateFinal::OnShow()
 {
 	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
 	CFont f,*fp;
@@ -200,6 +200,12 @@ void CGameStateRun::OnBeginState()
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	king->OnMove(map);
+	/*
+	if (map->End() == true)
+	{
+		GotoGameState(GAME_STATE_FINAL);
+	}
+	*/
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -216,6 +222,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	king->LoadBitmap();
 	CAudio::Instance()->Load(AUDIO_Menu_Intro, "sounds\\Menu_Intro.mp3");
 	CAudio::Instance()->Load(AUDIO_Opening_Theme, "sounds\\Opening_Theme.mp3");
+	CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3"); // 落地音效
+	CAudio::Instance()->Load(AUDIO_Bump, "sounds\\Bump.mp3"); // 反彈音效
 	//CAudio::Instance()->Play(AUDIO_Menu_Intro, true);
 
 	//

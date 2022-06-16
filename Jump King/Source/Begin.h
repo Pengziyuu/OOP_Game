@@ -11,8 +11,8 @@ namespace game_framework {
 		int logoStop;
 	protected:
 		CMovingBitmap logo;					
-		CMovingBitmap logoenter;
-		CMovingBitmap logoking;
+		CMovingBitmap logoEnter;
+		CMovingBitmap logoKing;
 		int x, y;
 		int x2, y2;
 		int x3, y3;

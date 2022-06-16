@@ -494,7 +494,7 @@ CGame::CGame()
 	suspended = false;
 	gameStateTable[GAME_STATE_INIT] = new CGameStateInit(this);
 	gameStateTable[GAME_STATE_RUN]  = new CGameStateRun(this);
-	gameStateTable[GAME_STATE_OVER] = new CGameStateOver(this);
+	gameStateTable[GAME_STATE_FINAL] = new CGameStateFinal(this);
 	gameState = NULL;
 }
 
@@ -910,8 +910,12 @@ bool CDDraw::CreateSurface()
 bool CDDraw::CreateSurfaceFullScreen()
 {
     ddrval = lpDD->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
-    CheckDDFail("Can not SetCooperativeLevel Exclusive");
-    ddrval = lpDD->SetDisplayMode(1920, 1080, 32, 0, 0);
+	//ddrval = lpDD->SetDisplayMode(1024, 768, 32, 0, 0);
+	//CheckDDFail("Can not SetCooperativeLevel Exclusive");
+	//ddrval = lpDD->SetDisplayMode(size_x, size_y, 32, 0, 0);
+
+    //CheckDDFail("Can not SetCooperativeLevel Exclusive");
+    //ddrval = lpDD->SetDisplayMode(1920, 1080, 32, 0, 0);
 	if (ddrval != DD_OK) {
 	    ddrval = lpDD->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_NORMAL);
 		CheckDDFail("Can not SetCooperativeLevel Normal");

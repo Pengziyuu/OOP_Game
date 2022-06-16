@@ -21,6 +21,7 @@ namespace game_framework {
 
 		void plus();
 		void minus();
+		bool End();
 	protected:
 		int **matrix;
 		int nowMap;

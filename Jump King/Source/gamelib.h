@@ -83,7 +83,7 @@
 enum GAME_STATES {
 	GAME_STATE_INIT,
 	GAME_STATE_RUN,
-	GAME_STATE_OVER
+	GAME_STATE_FINAL
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -272,7 +272,7 @@ private:
 class CGame;
 class CGameStateInit;
 class CGameStateRun;
-class CGameStateOver;
+class CGameStateFinal;
 
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的各種狀態之Base class(是一個abstract class)

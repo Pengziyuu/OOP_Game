@@ -17,8 +17,6 @@ namespace game_framework {
 	void King::Initialize()
 	{
 		// 人物設定
-		CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3"); // 落地音效
-		CAudio::Instance()->Load(AUDIO_Bump, "sounds\\Bump.mp3"); // 反彈音效
 		x = 480;
 		//y = 600;
 		y = 300;
@@ -465,7 +463,6 @@ namespace game_framework {
 		}
 	}
 
-	
 	void King::TestMove(int d, Map *m)
 	{
 		switch (d)

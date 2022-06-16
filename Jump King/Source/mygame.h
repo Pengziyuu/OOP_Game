@@ -94,9 +94,9 @@ namespace game_framework {
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
 
-	class CGameStateOver : public CGameState {
+	class CGameStateFinal : public CGameState {
 	public:
-		CGameStateOver(CGame *g);
+		CGameStateFinal(CGame *g);
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
 	protected:
