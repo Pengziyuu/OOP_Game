@@ -118,8 +118,53 @@ void CGameStateInit::OnMove()
 
 void CGameStateInit::OnShow()
 {
-	//begin.OnShow();
-	GotoGameState(GAME_STATE_RUN);
+	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
+	CFont f, *fp, *fp1, *fp2, *fp3, *fp4, *fp5, *fp6;
+	f.CreatePointFont(100, "Times New Roman");	// 產生 font f; 160表示16 point的字
+	fp = pDC->SelectObject(&f);					// 選用 font f
+	fp1 = pDC->SelectObject(&f);
+	fp2 = pDC->SelectObject(&f);
+	fp3 = pDC->SelectObject(&f);
+	fp4 = pDC->SelectObject(&f);
+	fp5 = pDC->SelectObject(&f);
+	fp6 = pDC->SelectObject(&f);
+	pDC->SetBkColor(RGB(0, 0, 0));
+	pDC->SetTextColor(RGB(255, 255, 255));
+	char str[80];								// Demo 數字對字串的轉換
+	char str1[80];
+	char str2[80];
+	char str3[80];
+	char str4[80];
+	char str5[80];
+	char str6[80];
+	sprintf(str3, "操作說明");
+	sprintf(str4, "←　      左移動");
+	sprintf(str5, "→　      右移動");
+	sprintf(str6, "Space　長按蓄力跳躍");
+
+	sprintf(str, "密技");
+	sprintf(str1, "↑　       地圖往上");
+	sprintf(str2, " ↓　      地圖往下");		
+	pDC->TextOut(120, 400, str3);
+	pDC->SelectObject(fp3);						
+	pDC->TextOut(100, 430, str4);
+	pDC->SelectObject(fp4);					
+	pDC->TextOut(100, 460, str5);
+	pDC->SelectObject(fp5);					
+	pDC->TextOut(100, 490, str6);
+	pDC->SelectObject(fp6);				
+
+	pDC->TextOut(140, 540, str);
+	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+	pDC->TextOut(100, 570, str1);
+	pDC->SelectObject(fp1);
+	pDC->TextOut(100, 600, str2);
+	pDC->SelectObject(fp2);
+	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+
+
+	begin.OnShow();
+	//GotoGameState(GAME_STATE_RUN);
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -145,6 +190,7 @@ void CGameStateFinal::OnBeginState()
 
 void CGameStateFinal::OnInit()
 {
+	End.LoadBitmap(IDB_END);
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -162,7 +208,8 @@ void CGameStateFinal::OnInit()
 
 void CGameStateFinal::OnShow()
 {
-	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
+	/*
+	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC
 	CFont f,*fp;
 	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
 	fp=pDC->SelectObject(&f);					// 選用 font f
@@ -173,6 +220,8 @@ void CGameStateFinal::OnShow()
 	pDC->TextOut(240,210,str);
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	*/
+	End.ShowBitmap(2);
 }
 
 /////////////////////////////////////////////////////////////////////////////

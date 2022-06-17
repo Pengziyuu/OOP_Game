@@ -228,5 +228,257 @@
     <Image Include="RES\8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\imagecrown.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\25.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\26.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\27.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\28.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\29.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\31.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\33.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\34.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\35.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\36.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\37.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\38.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\39.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\40.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\41.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\42.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\43.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg25.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg26.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg27.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg28.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg29.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg31.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg36.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg37.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg38.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg39.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg40.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg41.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg42.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bg43.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg25.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg26.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg27.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg28.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg29.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg31.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg36.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg37.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg38.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg39.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg40.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\fg43.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
