@@ -81,6 +81,7 @@ void CGameStateInit::OnInit()
 	// 開始載入資料
 	//
 	begin.LoadBitmap();
+	about.LoadBitmap(IDB_ABOUT);
     // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -98,7 +99,8 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	
 		if (begin.logoStop == 5)
 		{
-			if (nChar == KEY_SPACE)
+			BeginAbout++;
+			if (nChar == KEY_SPACE && BeginAbout == 2)
 			{
 				Sleep(500);
 
@@ -108,6 +110,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 				PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 關閉遊戲
+
 		}
 }
 
@@ -162,8 +165,15 @@ void CGameStateInit::OnShow()
 	pDC->SelectObject(fp2);
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 
-
-	begin.OnShow();
+	if (BeginAbout == 0)
+	{
+		begin.OnShow();
+	}
+	else if (BeginAbout == 1)
+	{
+		about.SetTopLeft(0, 0);
+		about.ShowBitmap();
+	}
 	//GotoGameState(GAME_STATE_RUN);
 }								
 
@@ -248,13 +258,11 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	king->OnMove(map);
-	/*
-	if (map->End() == true)
+	if (map->IsEmpty(king->GetX(), king->GetY()) == 6)
 	{
 		GotoGameState(GAME_STATE_FINAL);
 	}
-	*/
+	king->OnMove(map);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

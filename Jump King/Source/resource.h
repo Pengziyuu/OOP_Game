@@ -124,7 +124,6 @@
 #define IDB_FG22                        280
 #define IDB_FG25                        281
 #define IDB_FG26                        282
-#define IDB_BITMAP9                     283
 #define IDB_FG27                        283
 #define IDB_FG28                        284
 #define IDB_FG29                        285
@@ -137,6 +136,8 @@
 #define IDB_FG39                        292
 #define IDB_FG40                        293
 #define IDB_FG43                        294
+#define IDB_BITMAP4                     295
+#define IDB_ABOUT                       295
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -149,7 +150,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        295
+#define _APS_NEXT_RESOURCE_VALUE        296
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

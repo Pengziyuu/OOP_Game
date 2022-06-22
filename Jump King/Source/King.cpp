@@ -311,7 +311,7 @@ namespace game_framework {
 				switch (faceDirection)
 				{
 				case LEFT:
-					if (m->IsEmpty(GetX() - velocityX, GetY()) == 0)
+					if (m->IsEmpty(GetX() - velocityX, GetY()) != 1)
 						x -= velocityX;
 					if (m->IsEmpty(GetX(), GetY() + 20) == 0) // 往前沒地板掉落
 					{
@@ -321,7 +321,7 @@ namespace game_framework {
 					}
 					break;
 				case RIGHT:
-					if (m->IsEmpty(GetX() + velocityX, GetY()) == 0)
+					if (m->IsEmpty(GetX() + velocityX, GetY()) != 1)
 						x += velocityX;
 					if (m->IsEmpty(GetX(), GetY() + 20) == 0) // 往前沒地板掉落
 					{

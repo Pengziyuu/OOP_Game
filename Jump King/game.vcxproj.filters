@@ -480,5 +480,8 @@
     <Image Include="RES\fg43.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\about.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

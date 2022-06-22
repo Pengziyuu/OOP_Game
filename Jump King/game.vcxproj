@@ -347,6 +347,7 @@
     <Image Include="RES\7.bmp" />
     <Image Include="RES\8.bmp" />
     <Image Include="RES\9.bmp" />
+    <Image Include="RES\about.bmp" />
     <Image Include="RES\bg14.bmp" />
     <Image Include="RES\bg15.bmp" />
     <Image Include="RES\bg16.bmp" />
