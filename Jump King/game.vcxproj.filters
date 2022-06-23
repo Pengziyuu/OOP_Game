@@ -483,5 +483,17 @@
     <Image Include="RES\about.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\princess.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\princess1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\princess2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\princess3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

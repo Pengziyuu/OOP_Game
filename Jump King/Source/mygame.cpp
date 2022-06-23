@@ -82,6 +82,7 @@ void CGameStateInit::OnInit()
 	//
 	begin.LoadBitmap();
 	about.LoadBitmap(IDB_ABOUT);
+	BeginAbout = 0;
     // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -95,11 +96,14 @@ void CGameStateInit::OnBeginState()
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	const char KEY_ESC = 27;
-	const char KEY_SPACE = ' ';
+	const char KEY_SPACE = 32;
 	
 		if (begin.logoStop == 5)
 		{
-			BeginAbout++;
+			if (nChar == KEY_SPACE)
+			{
+				BeginAbout++;
+			}
 			if (nChar == KEY_SPACE && BeginAbout == 2)
 			{
 				Sleep(500);
@@ -110,7 +114,6 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 				PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 關閉遊戲
-
 		}
 }
 
@@ -174,6 +177,12 @@ void CGameStateInit::OnShow()
 		about.SetTopLeft(0, 0);
 		about.ShowBitmap();
 	}
+	else 
+	{
+		CAudio::Instance()->Stop(AUDIO_Ending);
+		GotoGameState(GAME_STATE_RUN);
+		BeginAbout = 0;
+	}
 	//GotoGameState(GAME_STATE_RUN);
 }								
 
@@ -195,7 +204,7 @@ void CGameStateFinal::OnMove()
 
 void CGameStateFinal::OnBeginState()
 {
-	counter = 30 * 5; // 5 seconds
+	counter = 30 * 62; // 5 seconds
 }
 
 void CGameStateFinal::OnInit()
@@ -260,7 +269,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	if (map->IsEmpty(king->GetX(), king->GetY()) == 6)
 	{
+		CAudio::Instance()->Play(AUDIO_Ending, false);
 		GotoGameState(GAME_STATE_FINAL);
+		map->restart();
 	}
 	king->OnMove(map);
 }
@@ -281,7 +292,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CAudio::Instance()->Load(AUDIO_Opening_Theme, "sounds\\Opening_Theme.mp3");
 	CAudio::Instance()->Load(AUDIO_Fall, "sounds\\Fall.mp3"); // 落地音效
 	CAudio::Instance()->Load(AUDIO_Bump, "sounds\\Bump.mp3"); // 反彈音效
-	//CAudio::Instance()->Play(AUDIO_Menu_Intro, true);
+	CAudio::Instance()->Load(AUDIO_Ending, "sounds\\Ending.mp3");
+	CAudio::Instance()->Play(AUDIO_Menu_Intro, true);
 
 	//
 	// 完成部分Loading動作，提高進度

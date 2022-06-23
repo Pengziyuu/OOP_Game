@@ -427,6 +427,10 @@
     <Image Include="RES\king31L.bmp" />
     <Image Include="RES\logo.bmp" />
     <Image Include="RES\logoenter.bmp" />
+    <Image Include="RES\princess.bmp" />
+    <Image Include="RES\princess1.bmp" />
+    <Image Include="RES\princess2.bmp" />
+    <Image Include="RES\princess3.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,8 +18,7 @@ namespace game_framework {
 	{
 		// 人物設定
 		x = 480;
-		//y = 600;
-		y = 300;
+		y = 600;
 		floor = 638;
 		velocityX = 0;
 		velocityY = 0;	
@@ -234,7 +233,7 @@ namespace game_framework {
 				y -= velocityY;
 				if (GetY() - velocityY < 720)
 				{
-					if (velocityY < 300) velocityY--;
+					if (velocityY < 100) velocityY--;
 				}
 				if (GetY() - velocityY >= 700) // 碰到下邊界換上一張地圖，Y值回到30
 				{

@@ -56,11 +56,14 @@ namespace game_framework {
 
 		void plus();
 		void minus();
+		void restart();
 	protected:
 		int **matrix;
 		int nowMap;
 		int minMap;
 		int maxMap;
+
+		CAnimation princess;
 
 		CMovingBitmap map01;
 		CMovingBitmap fg01;

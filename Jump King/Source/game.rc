@@ -306,6 +306,14 @@ IDB_FG43                BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1
 
 IDB_ABOUT               BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\about.bmp"
 
+IDB_PRINCESS            BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\princess.bmp"
+
+IDB_PRINCESS1           BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\princess1.bmp"
+
+IDB_PRINCESS2           BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\princess2.bmp"
+
+IDB_PRINCESS3           BITMAP                  "C:\\Users\\user\\Desktop\\HW\\1102_OOP_Game\\Jump King\\RES\\princess3.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
