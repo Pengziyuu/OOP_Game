@@ -76,7 +76,7 @@ void CGameStateInit::OnInit()
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(0);	// 一開始的loading進度為0%
+	//ShowInitProgress(0);	// 一開始的loading進度為0%
 	//
 	// 開始載入資料
 	//
@@ -214,15 +214,15 @@ void CGameStateFinal::OnInit()
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
+	//ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
 	//
 	// 開始載入資料
 	//
-	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 最終進度為100%
 	//
-	ShowInitProgress(100);
+	//ShowInitProgress(100);
 }
 
 void CGameStateFinal::OnShow()
@@ -282,7 +282,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(33);	// 接個前一個狀態的進度，此處進度視為33%
+	//ShowInitProgress(33);	// 接個前一個狀態的進度，此處進度視為33%
 	//
 	// 開始載入資料
 	//
@@ -298,8 +298,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 完成部分Loading動作，提高進度
 	//
-	ShowInitProgress(50);
-     // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//ShowInitProgress(50);
+    // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 繼續載入其他資料
 	//
